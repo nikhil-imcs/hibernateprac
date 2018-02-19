@@ -13,7 +13,7 @@
 		<property name="hibernate.connection.password">root</property>
 
 
- 		<!-- <property name="hibernate.hbm2ddl.auto">create</property> -->
+ 		<property name="hibernate.hbm2ddl.auto">create</property>
 
 
 		<!-- Echo all executed SQL to stdout -->
@@ -21,6 +21,7 @@
 
 		<!-- Include all the mapping pojo classes -->
 		<mapping class="com.imcs.hibernate.entity.Customer" />
+		<mapping class="com.imcs.hibernate.entity.Address" />
 		 <mapping class="com.imcs.hibernate.entity.Product" />
 		 <mapping class="com.imcs.hibernate.entity.Order" />
 		 <mapping class="com.imcs.hibernate.entity.OrdersProducts" />

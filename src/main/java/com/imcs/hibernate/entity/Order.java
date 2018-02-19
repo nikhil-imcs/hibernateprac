@@ -1,31 +1,25 @@
 package com.imcs.hibernate.entity;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name= "orders")
+@Table(name = "orders")
 public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "order_id")
-	private int id;
+	private Integer id;
 	@Column(name = "invoice_creation_date")
 	@Temporal(TemporalType.DATE)
 	private Date invoiceCreationDate;
@@ -37,19 +31,9 @@ public class Order {
 	private Date paymentDate;
 	@Column(name = "custom_message")
 	private String customMessage;
-	/*@Column(name="cust_id")
-	private int custId;*/
 
-	/*@ManyToOne
-	@JoinColumn(name = "cust_id")
-	private Customer customer;
-*/
-	/*@ManyToMany
-	@JoinTable(name="orders_products", joinColumns={@JoinColumn(name="order_id")}, inverseJoinColumns={@JoinColumn(name="product_id")})
-	private List<Product> products;*/
-	
 	@OneToMany
-	@JoinColumn(name="order_id")
+	@JoinColumn(name = "order_id")
 	private List<OrdersProducts> ordersProducts;
 
 	public Order() {
@@ -63,18 +47,8 @@ public class Order {
 		this.deliveryDate = deliveryDate;
 		this.paymentDate = paymentDate;
 		this.customMessage = customMessage;
-		
-	}
-	
-	
 
-	/*public int getCustId() {
-		return custId;
 	}
-
-	public void setCustId(int custId) {
-		this.custId = custId;
-	}*/
 
 	public List<OrdersProducts> getOrdersProducts() {
 		return ordersProducts;
@@ -84,11 +58,11 @@ public class Order {
 		this.ordersProducts = ordersProducts;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -123,36 +97,6 @@ public class Order {
 	public void setCustomMessage(String customMessage) {
 		this.customMessage = customMessage;
 	}
-
-	/*public List<Product> getProducts() {
-		return products;
-	}
-
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
-
-	public boolean add(Product product) {
-		if (products == null) {
-			products = new ArrayList<Product>();
-		}
-
-		boolean status = products.add(product);
-		return status;
-	}
-
-	public boolean deleteProduct(Product product) {
-		boolean status = products.remove(product);
-		return status;
-	}*/
-
-	/*public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}*/
 
 	@Override
 	public String toString() {

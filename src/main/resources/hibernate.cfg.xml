@@ -21,6 +21,7 @@
 
 		<!-- Include all the mapping pojo classes -->
 		<mapping class="com.imcs.hibernate.entity.Customer" />
+		<mapping class="com.imcs.hibernate.entity.Address" />
 		 <mapping class="com.imcs.hibernate.entity.Product" />
 		 <mapping class="com.imcs.hibernate.entity.Order" />
 		 <mapping class="com.imcs.hibernate.entity.OrdersProducts" />

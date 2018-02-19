@@ -15,14 +15,13 @@ public class OrdersProducts {
 	@Column(name="orders_products_id")
 	private int id;
 	private int quantity;
-	/*@Column(name="order_id")
-	private int orderId;
-	@Column(name="product_id")
-	private int productId;*/
 	
 	public OrdersProducts(){
 		
 	}
+	
+	
+
 
 	public int getId() {
 		return id;
@@ -38,26 +37,6 @@ public class OrdersProducts {
 	
 	
 
-	/*public int getOrderId() {
-		return orderId;
-	}
-
-	public void setOrderId(int orderId) {
-		this.orderId = orderId;
-	}
-
-	public int getProductId() {
-		return productId;
-	}
-
-	public void setProductId(int productId) {
-		this.productId = productId;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-	*/
 	
 
 }

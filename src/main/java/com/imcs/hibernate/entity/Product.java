@@ -8,42 +8,36 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="product")
+@Table(name = "product")
 public class Product {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="product_id")
-	private int id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "product_id")
+	private Integer id;
 	private String name;
 	private String description;
 	private double price;
-	/*@ManyToMany
-	@JoinTable(name="orders_products", joinColumns={@JoinColumn(name="product_id")}, inverseJoinColumns={@JoinColumn(name="order_id")})
-	private List<Order> orders;*/
-	
+
 	@OneToMany
-	@JoinColumn(name="product_id")
+	@JoinColumn(name = "product_id")
 	private List<OrdersProducts> ordersProducts;
-	
-	public Product(){
-		
+
+	public Product() {
+
 	}
 
-	public Product(int id, String name, String description, double price) {
+	public Product(Integer id, String name, String description, double price, List<OrdersProducts> ordersProducts) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.price = price;
+		this.ordersProducts = ordersProducts;
 	}
-	
-	
 
 	public List<OrdersProducts> getOrdersProducts() {
 		return ordersProducts;
@@ -53,11 +47,11 @@ public class Product {
 		this.ordersProducts = ordersProducts;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -84,16 +78,6 @@ public class Product {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	
-	
-
-	/*public List<Order> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
-	}*/
 
 	@Override
 	public String toString() {
@@ -109,7 +93,5 @@ public class Product {
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
 
 }
