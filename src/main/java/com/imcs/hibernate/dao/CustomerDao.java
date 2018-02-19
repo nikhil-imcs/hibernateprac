@@ -7,6 +7,7 @@ import com.imcs.hibernate.entity.Customer;
 
 import com.imcs.hibernate.dao.HibernateUtils;
 
+
 public class CustomerDao implements ICustomerDao {
 	
 	private Session getSession() {

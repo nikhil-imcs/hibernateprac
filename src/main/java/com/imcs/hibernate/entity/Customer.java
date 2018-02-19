@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -15,7 +16,7 @@ import javax.persistence.Table;
 @Table(name="customer")
 public class Customer {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="cust_id")
 	private int id;
 	@Column(name="title")
@@ -59,7 +60,8 @@ public class Customer {
 	@Column(name="other_details")
 	private String otherDetails;
 	
-	@OneToMany(mappedBy="customer")
+	@OneToMany
+	@JoinColumn(name="cust_id")
 	private List<Order> orders;
 	
 	public Customer(){
@@ -71,12 +73,10 @@ public class Customer {
 			orders=new ArrayList<Order>();
 		}
 		boolean status=orders.add(order);
-		order.setCustomer(this);
 		return status;
 	}
 	
 	public boolean removeOrder(Order order){
-		order.setCustomer(null);
 		boolean status=orders.remove(order);
 		return status;
 		

@@ -6,51 +6,82 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="order")
+@Table(name= "orders")
 public class Order {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="order_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "order_id")
 	private int id;
-	@Column(name="invoice_creation_date")
+	@Column(name = "invoice_creation_date")
+	@Temporal(TemporalType.DATE)
 	private Date invoiceCreationDate;
-	@Column(name="delivery_date")
+	@Temporal(TemporalType.DATE)
+	@Column(name = "delivery_date")
 	private Date deliveryDate;
-	@Column(name="payment_date")
+	@Temporal(TemporalType.DATE)
+	@Column(name = "payment_date")
 	private Date paymentDate;
-	@Column(name="custom_message")
+	@Column(name = "custom_message")
 	private String customMessage;
-	@OneToMany(fetch=FetchType.EAGER)
-	@JoinColumn(name="product_id")
-	private List<Product> products;
-	
-	@ManyToOne
-	@JoinColumn(name="cust_id")
+	/*@Column(name="cust_id")
+	private int custId;*/
+
+	/*@ManyToOne
+	@JoinColumn(name = "cust_id")
 	private Customer customer;
+*/
+	/*@ManyToMany
+	@JoinTable(name="orders_products", joinColumns={@JoinColumn(name="order_id")}, inverseJoinColumns={@JoinColumn(name="product_id")})
+	private List<Product> products;*/
 	
-	public Order(){
-		
+	@OneToMany
+	@JoinColumn(name="order_id")
+	private List<OrdersProducts> ordersProducts;
+
+	public Order() {
+
 	}
 
-	public Order(int id, Date invoiceCreationDate, Date deliveryDate, Date paymentDate, String customMessage,
-			List<Product> products) {
+	public Order(int id, Date invoiceCreationDate, Date deliveryDate, Date paymentDate, String customMessage) {
 		super();
 		this.id = id;
 		this.invoiceCreationDate = invoiceCreationDate;
 		this.deliveryDate = deliveryDate;
 		this.paymentDate = paymentDate;
 		this.customMessage = customMessage;
-		this.products = products;
+		
+	}
+	
+	
+
+	/*public int getCustId() {
+		return custId;
+	}
+
+	public void setCustId(int custId) {
+		this.custId = custId;
+	}*/
+
+	public List<OrdersProducts> getOrdersProducts() {
+		return ordersProducts;
+	}
+
+	public void setOrdersProducts(List<OrdersProducts> ordersProducts) {
+		this.ordersProducts = ordersProducts;
 	}
 
 	public int getId() {
@@ -93,38 +124,35 @@ public class Order {
 		this.customMessage = customMessage;
 	}
 
-	public List<Product> getProducts() {
+	/*public List<Product> getProducts() {
 		return products;
 	}
 
 	public void setProducts(List<Product> products) {
 		this.products = products;
 	}
-	
-	public boolean add(Product product){
-		if(products==null){
-			products=new ArrayList<Product>();
-		}
-		
-		boolean status=products.add(product);
-		return status;
-	}
-	
-	public boolean deleteProduct(Product product){
-		boolean status=products.remove(product);
-		return status;
-	}
-	
-	
-	
 
-	public Customer getCustomer() {
+	public boolean add(Product product) {
+		if (products == null) {
+			products = new ArrayList<Product>();
+		}
+
+		boolean status = products.add(product);
+		return status;
+	}
+
+	public boolean deleteProduct(Product product) {
+		boolean status = products.remove(product);
+		return status;
+	}*/
+
+	/*public Customer getCustomer() {
 		return customer;
 	}
 
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
-	}
+	}*/
 
 	@Override
 	public String toString() {
@@ -139,12 +167,7 @@ public class Order {
 		builder.append(paymentDate);
 		builder.append(", customMessage=");
 		builder.append(customMessage);
-		builder.append(", products=");
-		builder.append(products);
-		builder.append("]");
 		return builder.toString();
 	}
-	
-	
 
 }

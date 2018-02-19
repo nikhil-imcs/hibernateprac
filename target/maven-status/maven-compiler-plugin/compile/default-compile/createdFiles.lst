@@ -1,0 +1,9 @@
+com\imcs\hibernate\apps\App.class
+com\imcs\hibernate\dao\HibernateUtils.class
+com\imcs\hibernate\entity\Order.class
+com\imcs\hibernate\dao\CustomerDao.class
+com\imcs\hibernate\service\ICustomerService.class
+com\imcs\hibernate\entity\Product.class
+com\imcs\hibernate\service\CustomerService.class
+com\imcs\hibernate\dao\ICustomerDao.class
+com\imcs\hibernate\entity\Customer.class

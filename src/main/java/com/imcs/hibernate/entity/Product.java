@@ -1,22 +1,35 @@
 package com.imcs.hibernate.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="product")
 public class Product {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="product_id")
 	private int id;
 	private String name;
 	private String description;
 	private double price;
+	/*@ManyToMany
+	@JoinTable(name="orders_products", joinColumns={@JoinColumn(name="product_id")}, inverseJoinColumns={@JoinColumn(name="order_id")})
+	private List<Order> orders;*/
+	
+	@OneToMany
+	@JoinColumn(name="product_id")
+	private List<OrdersProducts> ordersProducts;
 	
 	public Product(){
 		
@@ -28,6 +41,16 @@ public class Product {
 		this.name = name;
 		this.description = description;
 		this.price = price;
+	}
+	
+	
+
+	public List<OrdersProducts> getOrdersProducts() {
+		return ordersProducts;
+	}
+
+	public void setOrdersProducts(List<OrdersProducts> ordersProducts) {
+		this.ordersProducts = ordersProducts;
 	}
 
 	public int getId() {
@@ -61,6 +84,16 @@ public class Product {
 	public void setPrice(double price) {
 		this.price = price;
 	}
+	
+	
+
+	/*public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}*/
 
 	@Override
 	public String toString() {
