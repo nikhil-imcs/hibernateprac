@@ -2,16 +2,20 @@ package com.imcs.hibernate.entity;
 
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 
 @Entity
 @Table(name = "orders")
@@ -31,13 +35,19 @@ public class Order {
 	private Date paymentDate;
 	@Column(name = "custom_message")
 	private String customMessage;
+	@Column(name="order_status")
+	private String orderStatus;
+	@Column(name="total_order_price")
+	private Double totalOrderPrice;
+	@ManyToOne
+	@JoinColumn(name="cust_id")
+	private Customer customer;
 
-	@OneToMany
-	@JoinColumn(name = "order_id")
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
 	private List<OrdersProducts> ordersProducts;
 
 	public Order() {
-
+		
 	}
 
 	public Order(int id, Date invoiceCreationDate, Date deliveryDate, Date paymentDate, String customMessage) {
@@ -56,6 +66,44 @@ public class Order {
 
 	public void setOrdersProducts(List<OrdersProducts> ordersProducts) {
 		this.ordersProducts = ordersProducts;
+	}
+	
+	
+	
+	
+	
+	
+
+	public Double getTotalOrderPrice() {
+		return totalOrderPrice;
+	}
+
+	public void setTotalOrderPrice(Double totalOrderPrice) {
+		this.totalOrderPrice = totalOrderPrice;
+	}
+
+	public String getOrderStatus() {
+		return orderStatus;
+	}
+
+	public void setOrderStatus() {
+		if(deliveryDate.compareTo(new Date())>0){
+			this.orderStatus="processing";
+		}
+		else if(deliveryDate.compareTo(new Date())<0){
+			this.orderStatus="delivered";
+		}
+		else{
+			this.orderStatus="Delivering Today";
+		}
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 	public Integer getId() {
@@ -109,9 +157,18 @@ public class Order {
 		builder.append(deliveryDate);
 		builder.append(", paymentDate=");
 		builder.append(paymentDate);
-		builder.append(", customMessage=");
-		builder.append(customMessage);
+		builder.append(", orderStatus=");
+		builder.append(orderStatus);
+		builder.append(", totalOrderPrice=");
+		builder.append(totalOrderPrice);
+		builder.append("]");
 		return builder.toString();
 	}
+
+	
+
+	
+
+	
 
 }

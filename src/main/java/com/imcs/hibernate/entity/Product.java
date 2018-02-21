@@ -2,12 +2,12 @@ package com.imcs.hibernate.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -20,10 +20,9 @@ public class Product {
 	private Integer id;
 	private String name;
 	private String description;
-	private double price;
+	private Double price;
 
-	@OneToMany
-	@JoinColumn(name = "product_id")
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
 	private List<OrdersProducts> ordersProducts;
 
 	public Product() {
@@ -71,11 +70,11 @@ public class Product {
 		this.description = description;
 	}
 
-	public double getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 

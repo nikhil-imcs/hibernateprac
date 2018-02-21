@@ -3,6 +3,7 @@ package com.imcs.hibernate.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,12 +42,15 @@ public class Customer {
 	@Column(name="other_details")
 	private String otherDetails;
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="address_id")
 	private Address address;
 	
-	@OneToMany
+	/*@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="cust_id")
+	private List<Order> orders;*/
+	
+	@OneToMany(mappedBy="customer",cascade=CascadeType.ALL)
 	private List<Order> orders;
 	
 	public Customer(){
@@ -58,10 +62,12 @@ public class Customer {
 			orders=new ArrayList<Order>();
 		}
 		boolean status=orders.add(order);
+		order.setCustomer(this);
 		return status;
 	}
 	
 	public boolean removeOrder(Order order){
+		order.setCustomer(null);
 		boolean status=orders.remove(order);
 		return status;
 		
